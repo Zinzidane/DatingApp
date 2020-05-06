@@ -38,3 +38,4 @@ msbuild.wrn
 *.db
 bin
 obj
+appsettings.json
