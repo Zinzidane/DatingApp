@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import * as alertify from 'alertifyjs';
 import { AlertifyService } from './alertify.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +20,8 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private alertifyService: AlertifyService
+    private alertifyService: AlertifyService,
+    private router: Router
   ) {}
 
   login(model: any) {
@@ -53,5 +55,6 @@ export class AuthService {
   logout() {
     localStorage.removeItem('token');
     this.alertifyService.message('Logout');
+    this.router.navigate(['/members']);
   }
 }
