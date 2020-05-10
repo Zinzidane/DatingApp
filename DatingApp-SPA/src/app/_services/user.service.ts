@@ -44,4 +44,28 @@ export class UserService {
       })
     );
   }
+
+  setMainPhoto(userId: number, id: number) {
+    return this.http
+      .post(this.baseUrl + 'users/' + userId + '/photos/' + id + '/setMain', {})
+      .pipe(
+        map(() => this.alertifyService.success('Avatar updated!')),
+        catchError((err) => {
+          this.alertifyService.error(err);
+          return of(null);
+        })
+      );
+  }
+
+  deletePhoto(userId: number, id: number) {
+    return this.http
+      .delete(this.baseUrl + 'users/' + userId + '/photos/' + id)
+      .pipe(
+        map(() => this.alertifyService.success('Photo was deleted!')),
+        catchError((err) => {
+          this.alertifyService.error(err);
+          return of(null);
+        })
+      );
+  }
 }

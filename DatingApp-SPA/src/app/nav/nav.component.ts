@@ -15,6 +15,10 @@ export class NavComponent implements OnInit {
     return this.authService.username;
   }
 
+  get avatarUrl() {
+    return this.authService.avatarUrl;
+  }
+
   constructor(
     private authService: AuthService,
     private alertifyService: AlertifyService,
