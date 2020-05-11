@@ -19,7 +19,7 @@ export class AppComponent {
 
     if (user) {
       this.authService.currentUser = user;
-      this.authService.changeAvatar(user.photoUrl);
+      this.authService.changeAvatar(user.photoUrl || 'assets/user.png');
     }
   }
 }
