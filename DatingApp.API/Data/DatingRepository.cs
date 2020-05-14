@@ -48,6 +48,7 @@ namespace DatingApp.API.Data
             var users = _context.Users.Include(p => p.Photos).OrderByDescending(u => u.LastActive).AsQueryable();
             users = users.Where(u => u.Id != userParams.UserId);
             users = users.Where(u => u.Gender == userParams.Gender);
+
             if (userParams.MinAge != 18 || userParams.MaxAge != 99)
             {
                 var minDateOfBirth = DateTime.Today.AddYears(-userParams.MaxAge - 1);
