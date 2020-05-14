@@ -5,11 +5,7 @@
   <div class="row">
     <div class="col-sm-4">
       <div class="card">
-        <img
-          class="card-img-top img-thumb"
-          src="{{ user.photoUrl || 'assets/user.png' }}"
-          alt="{{ user.knownAs }}"
-        />
+        <img class="card-img-top img-thumb" src="{{ user.photoUrl || 'assets/user.png' }}" alt="{{ user.knownAs }}" />
         <div class="card-body">
           <div>
             <strong>Location:</strong>
@@ -17,7 +13,7 @@
           </div>
           <div>
             <strong>Last Active:</strong>
-            <p>{{ user.lastActive | timeAgo }}</p>
+            <p>{{ user.lastActive.toISOString() | timeAgo }}</p>
           </div>
           <div>
             <strong>Member since:</strong>
@@ -45,10 +41,7 @@
           <p>{{ user.interests }}</p>
         </tab>
         <tab heading="Photos">
-          <ngx-gallery
-            [options]="galleryOptions"
-            [images]="galleryImages"
-          ></ngx-gallery>
+          <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
         </tab>
         <tab heading="Messages">
           <p>Messages will go here</p>
