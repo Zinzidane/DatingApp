@@ -6,6 +6,7 @@ import { User } from '../_models/user';
 import { catchError, map } from 'rxjs/operators';
 import { AlertifyService } from './alertify.service';
 import { PaginatedResult } from '../_models/pagination';
+import { Message } from '../_models/message';
 
 @Injectable({
   providedIn: 'root',
@@ -116,6 +117,43 @@ export class UserService {
       .post(this.baseUrl + 'users/' + id + '/like/' + recipientId, {})
       .pipe(
         map(() => this.alertifyService.success('You liked this user!')),
+        catchError((err) => {
+          this.alertifyService.error(err);
+          return of(null);
+        })
+      );
+  }
+
+  getMessages(id: number, page?, itemsPerPage?, messageContainer?) {
+    const paginatedResult: PaginatedResult<Message[]> = new PaginatedResult<
+      Message[]
+    >();
+
+    let params = new HttpParams();
+    params = params.append('MessageContainer', messageContainer);
+
+    if (page && itemsPerPage) {
+      params = params.append('pageNumber', page);
+      params = params.append('pageSize', itemsPerPage);
+    }
+
+    return this.http
+      .get<Message[]>(this.baseUrl + 'users/' + id + '/messages', {
+        observe: 'response',
+        params,
+      })
+      .pipe(
+        map((response) => {
+          paginatedResult.result = response.body;
+
+          if (response.headers.get('Pagination')) {
+            paginatedResult.pagination = JSON.parse(
+              response.headers.get('Pagination')
+            );
+          }
+
+          return paginatedResult;
+        }),
         catchError((err) => {
           this.alertifyService.error(err);
           return of(null);
