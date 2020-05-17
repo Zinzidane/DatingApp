@@ -39,3 +39,4 @@ msbuild.wrn
 bin
 obj
 appsettings.json
+wwwroot
