@@ -4,6 +4,7 @@ import { Pagination, PaginatedResult } from '../_models/pagination';
 import { UserService } from '../_services/user.service';
 import { AuthService } from '../_services/auth.service';
 import { ActivatedRoute } from '@angular/router';
+import { AlertifyService } from '../_services/alertify.service';
 
 @Component({
   selector: 'app-messages',
@@ -18,7 +19,8 @@ export class MessagesComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private usersService: UserService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private alertify: AlertifyService
   ) {}
 
   ngOnInit(): void {
@@ -40,6 +42,23 @@ export class MessagesComponent implements OnInit {
         this.messages = res.result;
         this.pagination = res.pagination;
       });
+  }
+
+  deleteMessage(id: number) {
+    this.alertify.confirm(
+      'Are you sure you want to delete this message',
+      () => {
+        this.usersService
+          .deleteMessage(id, this.authService.decodedToken.nameid)
+          .subscribe(() => {
+            this.messages.splice(
+              this.messages.findIndex((m) => m.id === id),
+              1
+            );
+            this.alertify.success('Message has been deleted');
+          });
+      }
+    );
   }
 
   pageChanged(event: any) {
