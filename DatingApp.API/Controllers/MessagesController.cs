@@ -132,6 +132,8 @@ namespace DatingApp.API.Controllers
 
             var message = await _repo.GetMessage(id);
 
+            Console.WriteLine(message.IsRead);
+
             if (message.RecipientId != userId)
                 return Unauthorized();
 

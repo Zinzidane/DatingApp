@@ -29,12 +29,14 @@ export class MemberMessagesComponent implements OnInit {
       .getMessageThread(currentUserId, this.recipientId)
       .pipe(
         tap((messages) => {
-          for (let i = 0; i < messages.lengtj; i++) {
+          console.log(messages);
+          for (const message of messages) {
+            console.log(message.isRead, message.recipientId === currentUserId);
             if (
-              messages[i].isRead === false &&
-              messages[i].recipientId === currentUserId
+              message.isRead === false &&
+              message.recipientId === currentUserId
             ) {
-              this.userService.markAsRead(currentUserId, messages[i].id);
+              this.userService.markAsRead(currentUserId, message.id);
             }
           }
         })

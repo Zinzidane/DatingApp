@@ -197,6 +197,7 @@ export class UserService {
   }
 
   markAsRead(userId: number, messageId: number) {
+    console.log(userId, messageId);
     this.http
       .post(
         this.baseUrl + 'users/' + userId + '/messages/' + messageId + '/read',
