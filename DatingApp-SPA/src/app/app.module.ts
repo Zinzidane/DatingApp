@@ -14,6 +14,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 
 import { AppComponent } from './app.component';
@@ -41,6 +42,7 @@ import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 import { HasRoleDirective } from './_directives/hasRole.directive';
 import { UserManagementComponent } from './admin/user-management/user-management.component';
 import { PhotoManagementComponent } from './admin/photo-management/photo-management.component';
+import { RolesModalComponent } from './admin/roles-modal/roles-modal.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -73,6 +75,7 @@ export class TimeAgoExtendsPipe extends TimeAgoPipe {}
     HasRoleDirective,
     UserManagementComponent,
     PhotoManagementComponent,
+    RolesModalComponent,
   ],
   imports: [
     CommonModule,
@@ -95,6 +98,7 @@ export class TimeAgoExtendsPipe extends TimeAgoPipe {}
     BsDatepickerModule.forRoot(),
     PaginationModule.forRoot(),
     ButtonsModule.forRoot(),
+    ModalModule.forRoot(),
     RouterModule.forRoot(appRoutes),
   ],
   providers: [
@@ -106,6 +110,7 @@ export class TimeAgoExtendsPipe extends TimeAgoPipe {}
     MessagesResolver,
     PreventUnsavedChanges,
   ],
+  entryComponents: [RolesModalComponent],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
