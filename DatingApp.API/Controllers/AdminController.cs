@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 namespace DatingApp.API.Controllers
 {
     [ApiController]
-    [Route("api/{controller}")]
+    [Route("api/[controller]")]
     public class AdminController : ControllerBase
     {
         private readonly DataContext _context;
@@ -24,7 +24,7 @@ namespace DatingApp.API.Controllers
         }
 
         [Authorize(Policy = "RequireAdminRole")]
-        [HttpGet("usersWithRoles")]
+        [HttpGet("userswithroles")]
         public async Task<IActionResult> GetUsersWithRoles()
         {
             var userList = await _context.Users
@@ -44,7 +44,7 @@ namespace DatingApp.API.Controllers
         }
 
         [Authorize(Policy = "RequireAdminRole")]
-        [HttpPost("editRoles/{userName")]
+        [HttpPost("editRoles/{userName}")]
         public async Task<IActionResult> EditRoles(string userName, RoleEditDto roleEditDto)
         {
             var user = await _userManager.FindByNameAsync(userName);
